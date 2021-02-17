@@ -9,11 +9,17 @@ cimport cython
 import numpy as np
 cimport numpy as np
 
+cimport
+cython
+cimport
+numpy as np
+import numpy as np
+
 DTYPE = np.float
 ctypedef np.float_t DTYPE_t
 
 def bbox_overlaps(np.ndarray[DTYPE_t, ndim=2] boxes,
-        np.ndarray[DTYPE_t, ndim=2] query_boxes):
+                  np.ndarray[DTYPE_t, ndim=2] query_boxes):
     return bbox_overlaps_c(boxes, query_boxes)
 
 cdef np.ndarray[DTYPE_t, ndim=2] bbox_overlaps_c(
@@ -36,18 +42,18 @@ cdef np.ndarray[DTYPE_t, ndim=2] bbox_overlaps_c(
     cdef unsigned int k, n
     for k in range(K):
         box_area = (
-            (query_boxes[k, 2] - query_boxes[k, 0] + 1) *
-            (query_boxes[k, 3] - query_boxes[k, 1] + 1)
+                (query_boxes[k, 2] - query_boxes[k, 0] + 1) *
+                (query_boxes[k, 3] - query_boxes[k, 1] + 1)
         )
         for n in range(N):
             iw = (
-                min(boxes[n, 2], query_boxes[k, 2]) -
-                max(boxes[n, 0], query_boxes[k, 0]) + 1
+                    min(boxes[n, 2], query_boxes[k, 2]) -
+                    max(boxes[n, 0], query_boxes[k, 0]) + 1
             )
             if iw > 0:
                 ih = (
-                    min(boxes[n, 3], query_boxes[k, 3]) -
-                    max(boxes[n, 1], query_boxes[k, 1]) + 1
+                        min(boxes[n, 3], query_boxes[k, 3]) -
+                        max(boxes[n, 1], query_boxes[k, 1]) + 1
                 )
                 if ih > 0:
                     ua = float(
@@ -58,12 +64,10 @@ cdef np.ndarray[DTYPE_t, ndim=2] bbox_overlaps_c(
                     overlaps[n, k] = iw * ih / ua
     return overlaps
 
-
 def bbox_intersections(
         np.ndarray[DTYPE_t, ndim=2] boxes,
         np.ndarray[DTYPE_t, ndim=2] query_boxes):
     return bbox_intersections_c(boxes, query_boxes)
-
 
 cdef np.ndarray[DTYPE_t, ndim=2] bbox_intersections_c(
         np.ndarray[DTYPE_t, ndim=2] boxes,
@@ -87,18 +91,18 @@ cdef np.ndarray[DTYPE_t, ndim=2] bbox_intersections_c(
     cdef unsigned int k, n
     for k in range(K):
         box_area = (
-            (query_boxes[k, 2] - query_boxes[k, 0] + 1) *
-            (query_boxes[k, 3] - query_boxes[k, 1] + 1)
+                (query_boxes[k, 2] - query_boxes[k, 0] + 1) *
+                (query_boxes[k, 3] - query_boxes[k, 1] + 1)
         )
         for n in range(N):
             iw = (
-                min(boxes[n, 2], query_boxes[k, 2]) -
-                max(boxes[n, 0], query_boxes[k, 0]) + 1
+                    min(boxes[n, 2], query_boxes[k, 2]) -
+                    max(boxes[n, 0], query_boxes[k, 0]) + 1
             )
             if iw > 0:
                 ih = (
-                    min(boxes[n, 3], query_boxes[k, 3]) -
-                    max(boxes[n, 1], query_boxes[k, 1]) + 1
+                        min(boxes[n, 3], query_boxes[k, 3]) -
+                        max(boxes[n, 1], query_boxes[k, 1]) + 1
                 )
                 if ih > 0:
                     intersec[n, k] = iw * ih / box_area

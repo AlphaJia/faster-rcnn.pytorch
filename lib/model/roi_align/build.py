@@ -1,13 +1,15 @@
 from __future__ import print_function
+
 import os
+
 import torch
 from torch.utils.ffi import create_extension
 
 sources = ['src/roi_align.c']
 headers = ['src/roi_align.h']
 extra_objects = []
-#sources = []
-#headers = []
+# sources = []
+# headers = []
 defines = []
 with_cuda = False
 
@@ -20,7 +22,7 @@ if torch.cuda.is_available():
     headers += ['src/roi_align_cuda.h']
     defines += [('WITH_CUDA', None)]
     with_cuda = True
-    
+
     extra_objects = ['src/roi_align_kernel.cu.o']
     extra_objects = [os.path.join(this_file, fname) for fname in extra_objects]
 

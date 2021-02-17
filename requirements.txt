@@ -3,7 +3,7 @@ cffi
 opencv-python
 scipy
 msgpack
-easydict
-matplotlib
-pyyaml
-tensorboardX
+easydict~=1.9
+matplotlib~=3.0.2
+pyyaml~=5.1.2
+tensorboardX~=2.0

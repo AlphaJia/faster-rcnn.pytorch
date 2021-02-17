@@ -1,4 +1,6 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
+import pdb
+
 import torch
 from torch import nn
 from torch.autograd import Function
@@ -7,7 +9,6 @@ from torch.nn.modules.utils import _pair
 
 from model import _C
 
-import pdb
 
 class _ROIAlign(Function):
     @staticmethod
